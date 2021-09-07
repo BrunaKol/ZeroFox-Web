@@ -43,7 +43,7 @@
                     </table>
                     
                     <div class="modal fade" id="addUsersModal" tabindex="-1" role="dialog" aria-labelledby="addUsersModalLabel" aria-hidden="true">
-                        <form method="POST" action="{{route('users.add')}}">
+                        <form id="addUsersForm" method="POST" action="{{route('users.add')}}">
                             @csrf
                         <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
                         <div class="modal-content">
@@ -92,13 +92,17 @@
                             </div>
                             <div class="form-group">
                                 <label for="password_confirmation">Ponovite lozinku korisnika</label>
-                                <input type="password" class="form-control" name="password_confirmation" id="password_confirmation" placeholder="Ponovite lozinku korisnika">
-
+                                <input type="password" class="form-control @error('password') is-invalid @enderror" name="password_confirmation" id="password_confirmation" placeholder="Ponovite lozinku korisnika">
+                                @error('password_confirmation')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
                             </div>
                             
                             <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Zatvori</button>
-                            <button type="submit" class="btn btn-primary">Spremi promjene</button>
+                            <button id="addUserBtn" type="submit" class="btn btn-primary">Spremi promjene</button>
                             </div>
                         </div>
                         </div>
@@ -109,4 +113,8 @@
         </div>
     </div>
 </div>
+
+
+
+
 @endsection

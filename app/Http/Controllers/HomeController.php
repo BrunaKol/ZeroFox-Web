@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 //use Illuminate\Routing\Controller;
+use Illuminate\Support\Facades\Response;
 use App\Models\User;
 use Illuminate\Foundation\Auth\RegistersUsers;
 
@@ -43,12 +44,31 @@ class HomeController extends Controller
 
     public function add(Request $request){
         $data = $request->all();
+        $validator = Validator::make($data, [
+            'name' => ['required', 'string', 'max:255'],
+            'surname' => ['required', 'string', 'max:255'],
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+            'password' => ['required', 'string', 'min:8', 'confirmed'],
+        ]);
+        if ($validator->fails()) {
+            if($request->ajax()){
+                return Response::json(array(
+                    'success' => false,
+                    'errors' => $validator->getMessageBag()->toArray()
+            
+                ), 400);
+            }else{
+                return redirect('/')->withErrors($validator)->withInput();
+            }
+            
+        }else {
         User::create([
             'name' => $data['name'],
             'surname' => $data['surname'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
         ]);
-        return redirect("/");
+        if($request->ajax()) return Response::json(array('success' => true), 200);
+        return redirect("/");}
     }
 }
