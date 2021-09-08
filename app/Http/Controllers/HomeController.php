@@ -30,45 +30,9 @@ class HomeController extends Controller
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */
-    public function index()
-    {
-        $users = DB:: table("users")->get();
+
+     public function index (){
+         return view("home");
+     }
     
-        return view('home', ["users"=>$users]); 
-    }
-
-    public function delete($id){
-        DB::table("users")->where("id", $id)->delete();
-        return redirect('/');
-    }
-
-    public function add(Request $request){
-        $data = $request->all();
-        $validator = Validator::make($data, [
-            'name' => ['required', 'string', 'max:255'],
-            'surname' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-            'password' => ['required', 'string', 'min:8', 'confirmed'],
-        ]);
-        if ($validator->fails()) {
-            if($request->ajax()){
-                return Response::json(array(
-                    'success' => false,
-                    'errors' => $validator->getMessageBag()->toArray()
-            
-                ), 400);
-            }else{
-                return redirect('/')->withErrors($validator)->withInput();
-            }
-            
-        }else {
-        User::create([
-            'name' => $data['name'],
-            'surname' => $data['surname'],
-            'email' => $data['email'],
-            'password' => Hash::make($data['password']),
-        ]);
-        if($request->ajax()) return Response::json(array('success' => true), 200);
-        return redirect("/");}
-    }
 }
