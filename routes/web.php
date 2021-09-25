@@ -21,7 +21,9 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-
+Route::get('/', function() {
+    return File::get(public_path() . '\index.html');
+  });
 Route::get('/users', [App\Http\Controllers\UsersController::class, 'index'])->name('users');
 Route::get('/users/delete/{id}', [App\Http\Controllers\UsersController::class, 'delete'])->name('users.delete');
 Route::post('/users/add', [App\Http\Controllers\UsersController::class, 'add'])->name('users.add');
