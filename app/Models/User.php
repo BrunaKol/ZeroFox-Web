@@ -43,7 +43,18 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
+    /*funkcija koja vraća trenutnu rolu */
+
     public function hasRole($role){
         return $this->role == $role;
+    }
+
+    public function profile()
+    {
+        return $this->hasOne('App\Models\Profile');
+    }
+
+    public function getId(){
+        return $this->id;
     }
 }

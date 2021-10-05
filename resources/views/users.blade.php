@@ -8,7 +8,7 @@
         </div>
         <div class="col-md-9">
             <div class="card">
-                <div class="card-header">Administracija korisnika</div>
+                <div class="card-header">User administration</div>
 
                 <div class="card-body">
                     @if (session('status'))
@@ -17,16 +17,17 @@
                         </div>
                     @endif
 
-                    <button type="button" class="btn btn-primary mb-3 float-right" data-toggle="modal" data-target="#addUsersModal"> Dodaj korisnika</button>
+                    <button type="button" class="btn btn-primary mb-3 float-right" data-toggle="modal" data-target="#addUsersModal"> Add user</button>
+
                     <table class="table table-bordered">
                         <tr>
                             <th>#ID</th>
-                            <th>Ime korisnika</th>
-                            <th>Prezime korisnika</th>
-                            <th>E-mail korisnika</th>
-                            <th>Uloga korisnika</th>
-                            <th>Vrijeme registracije</th>
-                            <th>Akcije</th>
+                            <th>Name</th>
+                            <th>Surname</th>
+                            <th>E-mail</th>
+                            <th>User role</th>
+                            <th>Registration date</th>
+                            <th>Actions</th>
 
                         </tr>
                         
@@ -39,7 +40,8 @@
                             <td>{{ $user->role }}</td>
                             <td>{{ $user->created_at }}</td>
                             <td>
-                                <a href='{{route("users.delete", $user->id)}}' class="btn btn-light">Pobriši</a>
+                                <a href='{{route("users.delete", $user->id)}}' class="btn btn-light">Delete</a>
+                                <a href='{{route("users.edit", $user->id)}}' class="btn btn-light">Update</a>
                             </td>
                         </tr>
                         @endforeach
@@ -51,15 +53,15 @@
                         <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
                         <div class="modal-content">
                         <div class="modal-header">
-                            <h5 class="modal-title" id="addUsersLabel">Dodavanje korisnika</h5>
+                            <h5 class="modal-title" id="addUsersLabel">Add user</h5>
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                             </button>
                         </div>
                         <div class="modal-body">
                             <div class="form-group">
-                                <label for="name">Ime Korisnika</label>
-                                <input type="text" class="form-control  @error('name') is-invalid @enderror" name="name" id="name" value="{{ old('name') }}" placeholder="Unesite ime korisnika">
+                                <label for="name">Name</label>
+                                <input type="text" class="form-control  @error('name') is-invalid @enderror" name="name" id="name" value="{{ old('name') }}" placeholder="First name of an user">
                                 @error('name')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
@@ -67,8 +69,8 @@
                                 @enderror
                             </div>
                             <div class="form-group">
-                                <label for="surname">Prezime Korisnika</label>
-                                <input type="text" class="form-control  @error('surname') is-invalid @enderror" name="surname" id="surname" placeholder="Unesite prezime korisnika">
+                                <label for="surname">Surname</label>
+                                <input type="text" class="form-control  @error('surname') is-invalid @enderror" name="surname" id="surname" placeholder="Last name of an user">
                                 @error('surname')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
@@ -76,8 +78,8 @@
                                 @enderror
                             </div>
                             <div class="form-group">
-                                <label for="email">Email korisnika</label>
-                                <input type="email" class="form-control  @error('email') is-invalid @enderror" name="email" id="email" placeholder="Unesite email korisnika">
+                                <label for="email">Email</label>
+                                <input type="email" class="form-control  @error('email') is-invalid @enderror" name="email" id="email" placeholder="Users email">
                                 @error('email')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
@@ -85,8 +87,8 @@
                                 @enderror
                             </div>
                             <div class="form-group">
-                                <label for="password">Lozinka korisnika</label>
-                                <input type="password" class="form-control  @error('password') is-invalid @enderror" name="password" id="password" placeholder="Unesite lozinku korisnika">
+                                <label for="password">Password</label>
+                                <input type="password" class="form-control  @error('password') is-invalid @enderror" name="password" id="password" placeholder="Strong password">
                                 @error('password')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
@@ -94,8 +96,8 @@
                                 @enderror
                             </div>
                             <div class="form-group">
-                                <label for="password_confirmation">Ponovite lozinku korisnika</label>
-                                <input type="password" class="form-control @error('password') is-invalid @enderror" name="password_confirmation" id="password_confirmation" placeholder="Ponovite lozinku korisnika">
+                                <label for="password_confirmation">Password</label>
+                                <input type="password" class="form-control @error('password') is-invalid @enderror" name="password_confirmation" id="password_confirmation" placeholder="Please confirm your password">
                                 @error('password_confirmation')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
@@ -104,8 +106,8 @@
                             </div>
                             
                             <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Zatvori</button>
-                            <button id="addUserBtn" type="submit" class="btn btn-primary">Spremi promjene</button>
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            <button id="addUserBtn" type="submit" class="btn btn-primary">Save</button>
                             </div>
                         </div>
                         </div>

@@ -9,20 +9,10 @@
             @include("layouts.menu")
             @endAdministrator
             @Korisnik
-            <div class="list-group">
-                <a href="#" class="list-group-item list-group-item-action">Moj profil</a>
-                <a href="#" class="list-group-item list-group-item-action">Moji proizvodi</a>
-                <a href="#" class="list-group-item list-group-item-action">Naslovna</a>
-                <a href="#" class="list-group-item list-group-item-action">Shop</a>
-                <a href="#" class="list-group-item list-group-item-action">ZeroFox</a>
-            </div>
+            @include("layouts.korisnik")
             @endKorisnik
             @Gost
-            <div class="list-group">
-                <a href="#" class="list-group-item list-group-item-action">Naslovna</a>
-                <a href="#" class="list-group-item list-group-item-action">Shop</a>
-                <a href="#" class="list-group-item list-group-item-action">ZeroFox </a>
-             </div>
+            @include("layouts.gost")
             @endGost
         </div>
         <div class="col-md-9"></div>

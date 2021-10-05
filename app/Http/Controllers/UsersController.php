@@ -16,10 +16,14 @@ use Illuminate\Support\Facades\DB;
 class UsersController extends Controller
 {
     //
+
+    /**/ 
     public function __construct(){
         $this->middleware('auth');
         $this->middleware('role:Administrator');
     }
+
+    /*prikaz korisnika*/
     public function index()
     {
         $users = DB:: table("users")->get();
@@ -27,10 +31,47 @@ class UsersController extends Controller
         return view('users', ["users"=>$users]); 
     }
 
+    /*brisanje iz baze */
+
     public function delete($id){
         DB::table("users")->where("id", $id)->delete();
         return redirect('users');
     }
+
+    /*promjena podataka u bazi, prima crud objekt id od korisnika i koristimo ga u edit bladeu 
+    public function edit($id)  
+    {  
+        return view('edit');
+    }  */
+
+    public function edit(User $user)
+    {
+        return view('edit', compact('user'));
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Models\User  $project
+     * @return \Illuminate\Http\Response
+     */
+
+    public function update(Request $request, User $user)
+    {
+        $request->validate([
+            'name' => 'required',
+            'surname' => 'required',
+            'email' => 'required',
+            'password' => 'required'
+        ]);
+        $user->update($request->all());
+
+        return redirect('users')
+            ->with('success', 'User updated successfully');
+    }
+
+    /*dodavanje u bazu*/
 
     public function add(Request $request){
         $data = $request->all();
@@ -40,6 +81,8 @@ class UsersController extends Controller
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
         ]);
+
+        /*provjera da li je sve ok preko ajaxa i ako nije da error izbaci*/ 
         if ($validator->fails()) {
             if($request->ajax()){
                 return Response::json(array(
@@ -47,8 +90,9 @@ class UsersController extends Controller
                     'errors' => $validator->getMessageBag()->toArray()
             
                 ), 400);
+            /*obična provjera */
             }else{
-                return redirect('/')->withErrors($validator)->withInput();
+                return redirect('/prijava')->withErrors($validator)->withInput();
             }
             
         }else {
