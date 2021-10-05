@@ -47,70 +47,71 @@
                         @endforeach
                     </table>
                     
-                    <div class="modal fade" id="addUsersModal" tabindex="-1" role="dialog" aria-labelledby="addUsersModalLabel" aria-hidden="true">
-                        <form id="addUsersForm" method="POST" action="{{route('users.add')}}">
+                    <div class="modal  fade" id="addUsersModal" tabindex="-1" role="dialog" aria-labelledby="addUserModalLabel" aria-hidden="true">
+                        <form id="addUsersForm" method="POST" action="{{ route('users.add') }}" >
                             @csrf
-                        <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
-                        <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="addUsersLabel">Add user</h5>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-                        <div class="modal-body">
-                            <div class="form-group">
-                                <label for="name">Name</label>
-                                <input type="text" class="form-control  @error('name') is-invalid @enderror" name="name" id="name" value="{{ old('name') }}" placeholder="First name of an user">
-                                @error('name')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
+                            <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+                                <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="addUserModalLabel">Users</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Zatvori">
+                                    <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    <div class="form-group">
+                                        <label for="name">Name</label>
+                                        <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}" required autocomplete="name" placeholder="User's first name" autofocus>
+                                        @error('name')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="surname">Surame</label>
+                                        <input id="surname" type="text" class="form-control @error('surname') is-invalid @enderror" name="surname" value="{{ old('surname') }}" required autocomplete="surname" placeholder="User's last name" autofocus>
+                                        @error('surname')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="email">E-mail</label>
+                                        <input id="email" type="text" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" placeholder="E-mail that's in use" autofocus>
+                                        @error('email')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
+                                    </div>
+                                  
+                                    <div class="form-group">
+                                        <label for="password">Password</label>
+                                        <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password"  required autocomplete="name" placeholder="Strong password" autofocus>
+                                        @error('password')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="password_confirmation">Password confirmation</label>
+                                        <input id="password_confirmation" type="password" class="form-control @error('password') is-invalid @enderror" name="password_confirmation" required autocomplete="name" placeholder="User's first name" autofocus>
+                                        @error('password')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
+                                    </div>
+                
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                    <button  type="submit" class="btn btn-primary">Save</button>
+                                </div>
+                                </div>
                             </div>
-                            <div class="form-group">
-                                <label for="surname">Surname</label>
-                                <input type="text" class="form-control  @error('surname') is-invalid @enderror" name="surname" id="surname" placeholder="Last name of an user">
-                                @error('surname')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
-                            <div class="form-group">
-                                <label for="email">Email</label>
-                                <input type="email" class="form-control  @error('email') is-invalid @enderror" name="email" id="email" placeholder="Users email">
-                                @error('email')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
-                            <div class="form-group">
-                                <label for="password">Password</label>
-                                <input type="password" class="form-control  @error('password') is-invalid @enderror" name="password" id="password" placeholder="Strong password">
-                                @error('password')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
-                            <div class="form-group">
-                                <label for="password_confirmation">Password</label>
-                                <input type="password" class="form-control @error('password') is-invalid @enderror" name="password_confirmation" id="password_confirmation" placeholder="Please confirm your password">
-                                @error('password_confirmation')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
-                            
-                            <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                            <button id="addUserBtn" type="submit" class="btn btn-primary">Save</button>
-                            </div>
-                        </div>
-                        </div>
                         </form>
                     </div>
                 </div>

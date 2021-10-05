@@ -28,8 +28,8 @@ Route::get('/', function() {
 Route::get('/users', [App\Http\Controllers\UsersController::class, 'index'])->name('users');
 Route::get('/users/delete/{id}', [App\Http\Controllers\UsersController::class, 'delete'])->name('users.delete');
 Route::post('/users/add', [App\Http\Controllers\UsersController::class, 'add'])->name('users.add');
-Route::get('/users/edit', [App\Http\Controllers\UsersController::class, 'edit'])->name('users.edit');
-Route::put('/users/update', [App\Http\Controllers\UsersController::class, 'update'])->name('users.update');
+Route::get('/users/edit/{id}', [App\Http\Controllers\UsersController::class, 'edit'])->name('users.edit');
+Route::put('/users/update/{user}', [App\Http\Controllers\UsersController::class, 'update'])->name('users.update');
 Route::get('/profile/{user_id}', [App\Http\Controllers\ProfileController::class, 'show'])->name('profile.show');
 Route::get('/guest', [App\Http\Controllers\GuestController::class, 'index'])->name('guest');
 

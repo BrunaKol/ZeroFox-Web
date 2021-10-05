@@ -19,7 +19,23 @@ use Illuminate\Support\Facades\DB;
 
 class ProfileController extends Controller
 {
-    /*public function show($id = null)
+    
+    public function show($user_id)
+    {
+
+        $profile = Profile::find($user_id);
+        
+        return view("profile", compact('profile')); 
+
+        /*$userData = DB::table('users')
+        ->leftJoin('profiles', 'users.id', '=', 'profiles.user_id'
+        ->get();
+      return view('profile')->with('userData', $userData);*/
+        //$profile = DB::table('profile')->where('user_id', $user_id)->first()
+        /*$user = User::find(1);
+        $user_profile = Profile::info($user_id)->first();
+        return view('profile.show', compact('profile', 'user'));*/
+        /*public function show($id = null)
     {
         if (Auth::check()){
             $userId = Auth::user()->getId();
@@ -30,31 +46,6 @@ class ProfileController extends Controller
         
     }*/
 
-    public function show($user_id)
-    {
-        /*$userData = DB::table('users')
-        ->leftJoin('profiles', 'users.id', '=', 'profiles.user_id'
-        ->get();
-      return view('profile')->with('userData', $userData);*/
-
-
-
-
-
-        //$profile = DB::table('profile')->where('user_id', $user_id)->first();
-
-
-        
-        
-        
-        $profile = Profile::find($user_id);
-        
-        return view("profile", compact('profile')); 
-
-
-        /*$user = User::find(1);
-        $user_profile = Profile::info($user_id)->first();
-        return view('profile.show', compact('profile', 'user'));*/
     }
 
     

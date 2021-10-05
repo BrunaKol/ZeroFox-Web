@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Database\Eloquent\Model;
 //use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Response;
 use App\Models\User;
@@ -44,9 +45,12 @@ class UsersController extends Controller
         return view('edit');
     }  */
 
-    public function edit(User $user)
+    public function edit($id)
     {
-        return view('edit', compact('user'));
+        $user = User::find($id);
+        
+        return view("edit", compact('user')); 
+    
     }
 
     /**
@@ -59,16 +63,40 @@ class UsersController extends Controller
 
     public function update(Request $request, User $user)
     {
-        $request->validate([
+        /*$request->validate([
             'name' => 'required',
             'surname' => 'required',
             'email' => 'required',
             'password' => 'required'
         ]);
-        $user->update($request->all());
+        
+        $user = User::find($id);
+        $user->name = $request->get('name');
+        $user->surname = $request->get('surname');
+        $user->email = $request->get('email');
+        $user->password = $request->get('password');
+        $user->save();
+
 
         return redirect('users')
-            ->with('success', 'User updated successfully');
+            ->with('success', 'User updated successfully');*/
+
+            $this->validate($request, [
+                'name'=> 'required',
+                'surname'=> 'required',
+                'email'=> 'required',
+                'password'=>'required'
+            ]);
+        
+            // update and save this user
+            $user->update([
+                'name' => $request->name,
+                'surname' => $request->surname,
+                'email' => $request->email,
+                'password' => $request->password
+            ]);
+        
+            return redirect('users')->with('succes', 'Data has been successfully sent!');
     }
 
     /*dodavanje u bazu*/
@@ -92,7 +120,7 @@ class UsersController extends Controller
                 ), 400);
             /*obična provjera */
             }else{
-                return redirect('/prijava')->withErrors($validator)->withInput();
+                return redirect('users')->withErrors($validator)->withInput();
             }
             
         }else {
