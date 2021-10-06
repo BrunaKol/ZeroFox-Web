@@ -4,14 +4,34 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Product;
+use Auth;
+use Closure;
 
 class ProductController extends Controller
 {
     /*prikaz svih proizvoda */
-    public function index()
-    {
+    public function index ($request){
+        $user = Auth::user();
+        
+        $admin = 'Administrator';
+        $korisnik = 'Korisnik';
+        if (!Auth::user()){
+            abort (403, "You don't have enough rights to access this site. Please log in or sign up.");
+        }
+      else if ($user->hasRole($admin) || $user->hasRole($korisnik)){
+            return redirect('/shop');
+        }
+        
+        
+    }
+
+    
+
+    public function shop(){
+
         $products = Product::all();
         return view('products', compact('products'));
+
     }
 
     /*prikaz košarice */

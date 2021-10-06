@@ -24,7 +24,6 @@ class ProfileController extends Controller
     {
 
         $profile = Profile::find($user_id);
-        
         return view("profile", compact('profile')); 
 
         /*$userData = DB::table('users')
@@ -42,10 +41,48 @@ class ProfileController extends Controller
             $user = User::with('profile')->findOrFail($userId);
         return view('profile.show', compact('user'));
         }
-        
-        
     }*/
 
+    }
+
+
+    public function add(Request $request){
+        $data = $request->all();
+        $user = Auth::user();
+        $userid = $user->id;
+        $validator = Validator::make($data, [
+            'birthday' => ['required', 'date'],
+            'image' => ['required', 'string', 'max:255'],
+            'gender' => ['required', 'string', 'max:255'],
+        ]);
+
+        /*provjera da li je sve ok preko ajaxa i ako nije da error izbaci*/ 
+        if ($validator->fails()) {
+            if($request->ajax()){
+                return Response::json(array(
+                    'success' => false,
+                    'errors' => $validator->getMessageBag()->toArray()
+            
+                ), 400);
+            /*obična provjera */
+            }else{
+                return redirect('shop')->withErrors($validator)->withInput();
+            }
+            
+        }else {
+        Profile::create([
+            'user_id' => auth()->user()->id,
+            'birthday' => $data['birthday'],
+            'image' => $data['image'],
+            'gender' => $data['gender'],
+        ]);
+        if($request->ajax()) return Response::json(array('success' => true), 200);
+        return redirect('profile/{users_id}');}
+    }
+
+
+    public function mineprofile(){
+        return view("mineprofile");
     }
 
     

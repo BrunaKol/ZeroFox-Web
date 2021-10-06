@@ -55,6 +55,7 @@
         
         <tr>
             <td><a href="{{ url('shop') }}" class="btn btn-warning"><i class="fa fa-angle-left"></i> Continue Shopping</a></td>
+            <td><a href="/final" class="btn btn-warning"><i class="fa fa-angle-legt"></i> Checkout</a></td>
             <td class="hidden-xs text-center"><strong>Total ${{ $total }}</strong></td>
             <td><a href="/login" class="btn btn-warning"><i class="fa fa-angle-right"></i> Back to profile</a></td>
 

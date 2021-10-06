@@ -30,16 +30,31 @@ Route::get('/users/delete/{id}', [App\Http\Controllers\UsersController::class, '
 Route::post('/users/add', [App\Http\Controllers\UsersController::class, 'add'])->name('users.add');
 Route::get('/users/edit/{id}', [App\Http\Controllers\UsersController::class, 'edit'])->name('users.edit');
 Route::put('/users/update/{user}', [App\Http\Controllers\UsersController::class, 'update'])->name('users.update');
-Route::get('/profile/{user_id}', [App\Http\Controllers\ProfileController::class, 'show'])->name('profile.show');
+
 Route::get('/guest', [App\Http\Controllers\GuestController::class, 'index'])->name('guest');
 
 
+Route::get('/profile/{user_id}', [App\Http\Controllers\ProfileController::class, 'show'])->name('profile.show');
+Route::post('/profile/add', [App\Http\Controllers\ProfileController::class, 'add'])->name('profile.add');
+Route::get('/mineprofile', [App\Http\Controllers\ProfileController::class, 'mineprofile'])->name('mineprofile');
 
-Route::get('/shop', [App\Http\Controllers\ProductController::class, 'index'])->name('product');
+
+Route::post('/address/add', [App\Http\Controllers\AddressController::class, 'add'])->name('address.add');
+Route::get('/address/{user_id}', [App\Http\Controllers\AddressController::class, 'show'])->name('address.show');
+Route::get('/mine', [App\Http\Controllers\AddressController::class, 'mine'])->name('mine');
+
+
+
+Route::get('/shop/{id}', [App\Http\Controllers\ProductController::class, 'index'])->name('product');
+Route::get('/shop', [App\Http\Controllers\ProductController::class, 'shop'])->name('shop');
 Route::get('/cart', [App\Http\Controllers\ProductController::class, 'cart'])->name('product.cart');
 Route::get('/add-to-cart/{id}', [App\Http\Controllers\ProductController::class, 'addToCart'])->name('cart.add');
 Route::patch('update-cart', [App\Http\Controllers\ProductController::class, 'update'])->name('cart.update');
 Route::delete('remove-from-cart', [App\Http\Controllers\ProductController::class, 'remove'])->name('cart.remove');
+
+Route::get('/final', [App\Http\Controllers\OrderController::class, 'final'])->name('final');
+Route::post('/checkout', [App\Http\Controllers\OrderController::class, 'checkout'])->name('checkout');
+
 
 
 
