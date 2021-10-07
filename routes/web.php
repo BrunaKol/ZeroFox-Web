@@ -1,6 +1,10 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\URL;
+use App\Http\Controllers;
+use App\Http\Controllers\HomeController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -21,7 +25,11 @@ Route::get('/', function () {
 
 Auth::routes();
 
-Route::get('/prijava', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
 Route::get('/', function() {
     return File::get(public_path() . '\index.html');
   });
@@ -46,6 +54,7 @@ Route::get('/mine', [App\Http\Controllers\AddressController::class, 'mine'])->na
 
 
 Route::get('/shop/{id}', [App\Http\Controllers\ProductController::class, 'index'])->name('product');
+//Route::get('shop/{id}', 'ProductController@index')->name('product');
 Route::get('/shop', [App\Http\Controllers\ProductController::class, 'shop'])->name('shop');
 Route::get('/cart', [App\Http\Controllers\ProductController::class, 'cart'])->name('product.cart');
 Route::get('/add-to-cart/{id}', [App\Http\Controllers\ProductController::class, 'addToCart'])->name('cart.add');
