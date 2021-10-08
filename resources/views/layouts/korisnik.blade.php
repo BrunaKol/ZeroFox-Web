@@ -1,5 +1,5 @@
 <div class="list-group">
-                <a href="{{ url('start') }}" class="list-group-item list-group-item-action">ZeroFox Home</a>
+                <a href="{{ url('\') }}" class="list-group-item list-group-item-action">ZeroFox Home</a>
                 <a href="{{ url('shop\{id}') }}" class="list-group-item list-group-item-action">Shop</a>
                 <a href="{{ url('mineprofile') }}" class="list-group-item list-group-item-action">Add profile</a>
                 <a href="{{ url('profile\{user.id}') }}" class="list-group-item list-group-item-action">My profile</a>
