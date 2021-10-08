@@ -27,10 +27,12 @@ Auth::routes();
 
 
 
-Route::get('/', function() {
-  return File::get(public_path() . '\index.html');
-});
+//Route::get('/', function() {
+  //return File::get(public_path() . '\index.html');
+// });
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+Route::get('/', [App\Http\Controllers\StartController::class, 'start'])->name('start');
 
 Route::get('/guest', [App\Http\Controllers\GuestController::class, 'index'])->name('guest');
 

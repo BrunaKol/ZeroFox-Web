@@ -32,8 +32,8 @@
                         <li class="nav-item"><a class="nav-link" href="#about">About</a></li>
                         <li class="nav-item"><a class="nav-link" href="#team">Team</a></li>
                         <li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li>
-                        <li class="nav-item"><a class="nav-link" href="/shop/{id}">Shop</a></li>
-                        <li class="nav-item"><a class="nav-link" href="home">User</a></li>
+                        <li class="nav-item"><a class="nav-link" href="{{ url('shop\{id}') }}">Shop</a></li>
+                        <li class="nav-item"><a class="nav-link" href="{{ url('home') }}">User</a></li>
                         
                     </ul>
                 </div>
