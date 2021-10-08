@@ -27,19 +27,34 @@ Auth::routes();
 
 
 
-
+Route::get('/', function() {
+  return File::get(public_path() . '\index.html');
+});
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
-Route::get('/', function() {
-    return File::get(public_path() . '\index.html');
-  });
+Route::get('/guest', [App\Http\Controllers\GuestController::class, 'index'])->name('guest');
+
+
 Route::get('/users', [App\Http\Controllers\UsersController::class, 'index'])->name('users');
 Route::get('/users/delete/{id}', [App\Http\Controllers\UsersController::class, 'delete'])->name('users.delete');
 Route::post('/users/add', [App\Http\Controllers\UsersController::class, 'add'])->name('users.add');
 Route::get('/users/edit/{id}', [App\Http\Controllers\UsersController::class, 'edit'])->name('users.edit');
 Route::put('/users/update/{user}', [App\Http\Controllers\UsersController::class, 'update'])->name('users.update');
 
-Route::get('/guest', [App\Http\Controllers\GuestController::class, 'index'])->name('guest');
+Route::get('/shop/{id}', [App\Http\Controllers\ProductController::class, 'index'])->name('product');
+//Route::get('shop/{id}', 'ProductController@index')->name('product');
+Route::get('/shop', [App\Http\Controllers\ProductController::class, 'shop'])->name('shop');
+Route::get('/cart', [App\Http\Controllers\ProductController::class, 'cart'])->name('product.cart');
+Route::get('/add-to-cart/{id}', [App\Http\Controllers\ProductController::class, 'addToCart'])->name('cart.add');
+Route::patch('update-cart', [App\Http\Controllers\ProductController::class, 'update'])->name('cart.update');
+Route::delete('remove-from-cart', [App\Http\Controllers\ProductController::class, 'remove'])->name('cart.remove');
+
+Route::get('/final', [App\Http\Controllers\OrderController::class, 'final'])->name('final');
+Route::post('/checkout', [App\Http\Controllers\OrderController::class, 'checkout'])->name('checkout');
+
+
+
+
 
 
 Route::get('/profile/{user_id}', [App\Http\Controllers\ProfileController::class, 'show'])->name('profile.show');
@@ -53,16 +68,6 @@ Route::get('/mine', [App\Http\Controllers\AddressController::class, 'mine'])->na
 
 
 
-Route::get('/shop/{id}', [App\Http\Controllers\ProductController::class, 'index'])->name('product');
-//Route::get('shop/{id}', 'ProductController@index')->name('product');
-Route::get('/shop', [App\Http\Controllers\ProductController::class, 'shop'])->name('shop');
-Route::get('/cart', [App\Http\Controllers\ProductController::class, 'cart'])->name('product.cart');
-Route::get('/add-to-cart/{id}', [App\Http\Controllers\ProductController::class, 'addToCart'])->name('cart.add');
-Route::patch('update-cart', [App\Http\Controllers\ProductController::class, 'update'])->name('cart.update');
-Route::delete('remove-from-cart', [App\Http\Controllers\ProductController::class, 'remove'])->name('cart.remove');
-
-Route::get('/final', [App\Http\Controllers\OrderController::class, 'final'])->name('final');
-Route::post('/checkout', [App\Http\Controllers\OrderController::class, 'checkout'])->name('checkout');
 
 
 

@@ -26,7 +26,7 @@
                 <a class="navbar-brand" href="{{ url('/') }}">
                     {{ config('app.name', 'Laravel') }}
                 </a>
-                <a class="navbar-brand" href="{{ url('/prijava') }}">
+                <a class="navbar-brand" href="{{ url('home') }}">
                     Profile
                 </a>
                 <button type="button" class="btn btn-info" data-toggle="dropdown">
